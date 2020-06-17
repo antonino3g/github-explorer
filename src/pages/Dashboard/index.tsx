@@ -1,10 +1,9 @@
 import React, { useState, useEffect, FormEvent } from 'react';
 import { FiChevronRight } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
-
 import api from '../../services/api';
 
-import logo from '../../assets/logo.svg';
+import logoImg from '../../assets/logo.svg';
 
 import { Title, Form, Repositories, Error } from './styles';
 
@@ -64,26 +63,23 @@ const Dashboard: React.FC = () => {
 
   return (
     <>
-      <img src={logo} alt="GitHub Explorer" />
+      <img src={logoImg} alt="Github Explorer" />
       <Title>Explore repositórios no GitHub</Title>
-
-      <Form onSubmit={handleAddRepository} hasError={!!inputError}>
+      <Form hasError={!!inputError} onSubmit={handleAddRepository}>
         <input
-          type="text"
-          placeholder="Digite o nome do repositório"
           value={newRepo}
           onChange={(e) => setNewRepo(e.target.value)}
+          placeholder="Digite o nome do repositório"
         />
         <button type="submit">Pesquisar</button>
       </Form>
-
       {inputError && <Error>{inputError}</Error>}
 
       <Repositories>
         {repositories.map((repository) => (
           <Link
             key={repository.full_name}
-            to={`/repository/${repository.full_name}`}
+            to={`/repositories/${repository.full_name}`}
           >
             <img
               src={repository.owner.avatar_url}
@@ -91,10 +87,10 @@ const Dashboard: React.FC = () => {
             />
             <div>
               <strong>{repository.full_name}</strong>
-              <span>{repository.description}</span>
+              <p>{repository.description}</p>
             </div>
 
-            <FiChevronRight size={20} color="#cbcbd6" />
+            <FiChevronRight size={20} />
           </Link>
         ))}
       </Repositories>

@@ -1,9 +1,10 @@
 import React, { useState, useEffect, FormEvent } from 'react';
 import { FiChevronRight } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
+
 import api from '../../services/api';
 
-import logoImg from '../../assets/logo.svg';
+import logo from '../../assets/logo.svg';
 
 import { Title, Form, Repositories, Error } from './styles';
 
@@ -21,20 +22,22 @@ const Dashboard: React.FC = () => {
   const [inputError, setInputError] = useState('');
   const [repositories, setRepositories] = useState<Repository[]>(() => {
     const storagedRepositories = localStorage.getItem(
-      '@GitHubExplore:repositories',
+      '@GithubExplorer:repositories',
     );
 
     if (storagedRepositories) {
       return JSON.parse(storagedRepositories);
     }
+
+    return [];
   });
 
   useEffect(() => {
     localStorage.setItem(
-      '@GitHubExplore:repositories',
+      '@GithubExplorer:repositories',
       JSON.stringify(repositories),
     );
-  });
+  }, [repositories]);
 
   async function handleAddRepository(
     event: FormEvent<HTMLFormElement>,
@@ -61,22 +64,26 @@ const Dashboard: React.FC = () => {
 
   return (
     <>
-      <img src={logoImg} alt="Github Explorer" />
+      <img src={logo} alt="GitHub Explorer" />
       <Title>Explore repositórios no GitHub</Title>
-      <Form hasError={!!inputError} onSubmit={handleAddRepository}>
+
+      <Form onSubmit={handleAddRepository} hasError={!!inputError}>
         <input
+          type="text"
+          placeholder="Digite o nome do repositório"
           value={newRepo}
           onChange={(e) => setNewRepo(e.target.value)}
-          placeholder="Digite o nome do repositório"
         />
         <button type="submit">Pesquisar</button>
       </Form>
+
       {inputError && <Error>{inputError}</Error>}
+
       <Repositories>
         {repositories.map((repository) => (
           <Link
             key={repository.full_name}
-            to={`/repositories/${repository.full_name}`}
+            to={`/repository/${repository.full_name}`}
           >
             <img
               src={repository.owner.avatar_url}
@@ -84,10 +91,10 @@ const Dashboard: React.FC = () => {
             />
             <div>
               <strong>{repository.full_name}</strong>
-              <p>{repository.description}</p>
+              <span>{repository.description}</span>
             </div>
 
-            <FiChevronRight size={20} />
+            <FiChevronRight size={20} color="#cbcbd6" />
           </Link>
         ))}
       </Repositories>

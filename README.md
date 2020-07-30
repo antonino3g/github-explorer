@@ -35,7 +35,7 @@ Ao clicar no respectivo repositório, será exibido dados básicos como a quanti
 ## :information_source: How To Use
 Antes de tudo, será necessário: [Node](https://nodejs.org/) e o [Git](https://git-scm.com) instalados na sua máquina. Feito isso, seguir:
 
-```bash
+```sh
 # Clone esse repositório
 $ git clone https://github.com/apfjunior/github-explorer.git
 

@@ -11,13 +11,11 @@
   </a>
 </p>
 
-## :mag: Deploy: https://github-explorer-apfjunior.netlify.app/
-
-<br />
-
 <p align="center">
   <img alt="Github_Explorer" src="https://i.ibb.co/3vzNKGS/demo-github-explorer.gif"  width="90%" />
 </p>
+
+### :mag: Deploy: https://github-explorer-apfjunior.netlify.app/
 
 ## :books: Sobre
 Aplicação construida com ReactJS e utilizando Typescript.
